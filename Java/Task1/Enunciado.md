@@ -1,6 +1,6 @@
 # POO - Analista Programador Universitario
 
-Representar funciones de teatro. Una función tiene un titulo, feceha, hora y mantiene una estructura que representa la sala( N filas y M butacas por fila) que almacenará la informacioón de cada butaca que comprende un descriptor(String), el precio y su estado(si esta ocupado o no).
+Representar funciones de teatro. Una función tiene un titulo, fecha, hora y mantiene una estructura que representa la sala( N filas y M butacas por fila) que almacenará la informacioón de cada butaca que comprende un descriptor(String), el precio y su estado(si esta ocupado o no).
 
 1- Genere las clases necesarias. Provea los constructores necesarios. La función debe iniciarse a partir de un titulo, una fecha, una hora y las dimensiones de la sala (N Y M). Inicialmente cada butaca debe estar desocupada, tener un precio que surge de la formula(800+100*nro_fila_de_la_butaca y un descriptor 'Butaca i.j donde i es el nro de fila y j es el nro de butaca dentro de su fila').
 
