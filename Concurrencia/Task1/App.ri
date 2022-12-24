@@ -1,0 +1,108 @@
+programa app
+procesos
+	proceso DepositarPapeles(ES contador:numero)
+	variables
+		avActual:numero
+		caActual:numero
+	comenzar
+		avActual:= PosAv
+		caActual:= PosCa
+		BloquearEsquina(15,10)
+		Pos(15,10)
+		repetir contador
+			depositarPapel
+		Pos(avActual, caActual)
+		LiberarEsquina(15,10)
+	fin
+
+	proceso JuntarPapeles(ES contador:numero)
+	comenzar
+
+		mientras(HayPapelEnLaEsquina)
+			tomarPapel
+			contador:=contador + 1
+			si(contador = 5)
+				DepositarPapeles(contador)
+				Informar('PUDE_DEPOSITAR_PAPELES',contador)
+				contador:=0
+	fin
+
+	proceso VerificarEsquina(E xCantidad:numero)
+	variables
+		aux:numero
+	comenzar
+		aux:= 0
+		mientras((HayPapelEnLaEsquina) & (aux < xCantidad))
+			tomarPapel
+			aux:= aux + 1
+		si(aux = xCantidad)
+			Informar('JUNTE_LO_QUE_PEDIA', xCantidad)
+		sino
+			repetir aux
+				depositarPapel
+	fin
+
+	proceso IrAJuntar(E xCantidad:numero)
+	variables
+		avActual:numero
+		caActual:numero
+	comenzar
+		avActual:= PosAv
+		caActual:= PosCa
+		BloquearEsquina(15,10)
+		Pos(15,10)
+		VerificarEsquina(xCantidad)
+		Pos(avActual,caActual)
+		LiberarEsquina(15,10)
+	fin
+
+areas
+  areaDepositarYTomar: AreaC (15,10,15,10)
+	area1: AreaP (5,1,5,20)
+	area2: AreaP (10,1,10,20)
+	area3: AreaP (11,1,11,1)
+	area4: AreaP (12,1,12,1)
+
+robots
+  robot productores
+	variables
+		contador: numero
+	comenzar
+		contador:= 0
+		repetir 19
+			JuntarPapeles(contador)
+			mover
+		JuntarPapeles(contador)
+	fin
+
+	robot consumidores
+	variables
+		xCantidad:numero
+	comenzar
+		repetir 8
+			Random(xCantidad, 2, 5)
+			IrAJuntar(xCantidad)	
+	fin
+
+variables
+	rp1: productores
+	rp2: productores
+	rc1: consumidores
+	rc2: consumidores
+
+comenzar
+	AsignarArea(rp1, area1)
+	AsignarArea(rp2, area2)
+	AsignarArea(rc1, area3)
+	AsignarArea(rc2, area4)
+
+	AsignarArea(rp1, areaDepositarYTomar)
+	AsignarArea(rp2, areaDepositarYTomar)
+	AsignarArea(rc1, areaDepositarYTomar)
+	AsignarArea(rc2, areaDepositarYTomar)
+
+	Iniciar(rp1, 5,1)
+	Iniciar(rp2, 10,1)
+	Iniciar(rc1, 11,1)
+	Iniciar(rc2, 12,1)
+fin
