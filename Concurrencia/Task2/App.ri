@@ -1,0 +1,108 @@
+programa nombrePrograma
+procesos
+	proceso VerificarEsquina(ES continue:boolean)
+	comenzar
+		si(~ HayFlorEnLaEsquina)
+			continue:= F
+	fin
+
+	proceso TomarFlor(E avInicial:numero, E caInicial:numero)
+	comenzar
+		BloquearEsquina(10,10)
+		Pos(10,10)
+		tomarFlor
+		Pos(avInicial,caInicial)
+		LiberarEsquina(10,10)
+	fin
+
+	proceso DepositarFlor(E avInicial:numero, E caInicial:numero)
+	comenzar
+		BloquearEsquina(11,11)
+		Pos(11,11)
+		depositarFlor
+		Pos(avInicial,caInicial)
+		LiberarEsquina(11,11)
+	fin
+
+	proceso JuntarYDepositar(E avInicial:numero, E caInicial:numero)
+	comenzar
+		TomarFlor(avInicial, caInicial)
+		DepositarFlor(avInicial,caInicial)
+	fin
+areas
+  GatheringArea: AreaC (10,10,10,10)
+  AreaToDeposit: AreaC (11,11,11,11)
+	AreaOne: AreaP (1,1,1,1)
+	AreaTwo: AreaP (9,9,9,9)
+	AreaThree: AreaP (9,10,9,10)
+	AreaFour: AreaP (9,11,9,11)
+	AreaFive: AreaP (9,12,9,12)
+robots
+  robot flowers
+	variables
+		id:numero
+		avInicial: numero
+		caInicial: numero
+		continue: boolean
+	comenzar
+		RecibirMensaje(id, rc)
+
+		continue:= V
+		avInicial:= PosAv
+		caInicial:= PosCa
+		mientras(continue)
+			VerificarEsquina(continue)
+			si(continue)
+				JuntarYDepositar(avInicial,caInicial)
+			sino
+				Informar('NO-HAY-MAS-FLORES', 0)
+				EnviarMensaje(id, rc)
+	fin
+
+	robot coordinator
+	variables
+		idRobot: numero
+	comenzar
+		EnviarMensaje(r1, 1)
+		EnviarMensaje(r2, 2)
+		EnviarMensaje(r3, 3)
+		EnviarMensaje(r4, 4)
+
+		repetir 3
+			RecibirMensaje(idRobot, *)
+
+		RecibirMensaje(idRobot, *)
+		Informar('EL-ROBOT-QUE-TERMINO-ULTIMO-ES',idRobot)
+	fin
+variables
+  r1: flowers
+  r2: flowers
+  r3: flowers
+  r4: flowers
+	rc: coordinator
+
+comenzar
+  AsignarArea (rc, AreaOne)
+	AsignarArea (r1, AreaTwo)
+	AsignarArea (r2, AreaThree)
+	AsignarArea (r3, AreaFour)
+	AsignarArea (r4, AreaFive)
+
+	AsignarArea(rc, GatheringArea)
+	AsignarArea(r1, GatheringArea)
+	AsignarArea(r2, GatheringArea)
+	AsignarArea(r3, GatheringArea)
+	AsignarArea(r4, GatheringArea)
+
+	AsignarArea(rc, AreaToDeposit)
+	AsignarArea(r1, AreaToDeposit)
+	AsignarArea(r2, AreaToDeposit)
+	AsignarArea(r3, AreaToDeposit)
+	AsignarArea(r4, AreaToDeposit)
+
+	Iniciar (rc, 1,1)
+	Iniciar (r1, 9,9)
+	Iniciar (r2, 9,10)
+	Iniciar (r3, 9,11)
+	Iniciar (r4, 9,12)
+fin
