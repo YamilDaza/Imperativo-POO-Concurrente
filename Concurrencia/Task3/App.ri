@@ -1,6 +1,6 @@
 programa App
 procesos
-	proceso verificarEsquina(ES hayPapeles:boolean)
+	proceso verificarYtomarPapel(ES hayPapeles:boolean)
 	variables
 		avActual:numero
 		caActual:numero
@@ -9,23 +9,12 @@ procesos
 		caActual:= PosCa
 		BloquearEsquina(12,12)
 		Pos(12,12)
-		si(~HayPapelEnLaEsquina)
+		si(HayPapelEnLaEsquina)
+			tomarPapel
+		sino
 			hayPapeles:= F
+			Informar('Ya-hay-mas-papeles', 0)
 		Pos(avActual,caActual)
-		LiberarEsquina(12,12)
-	fin
-
-	proceso tomarUnPapel
-	variables
-		avActual:numero
-		caActual:numero
-	comenzar
-		avActual:= PosAv
-		caActual:= PosCa
-		BloquearEsquina(12,12)
-		Pos(12,12)
-		tomarPapel
-		Pos(avActual, caActual)
 		LiberarEsquina(12,12)
 	fin
 
@@ -53,13 +42,10 @@ robots
 
 		hayPapeles:= V
 		mientras((PosCa < 10) & (hayPapeles))
-			verificarEsquina(hayPapeles)
+			verificarYtomarPapel(hayPapeles)
 			si(hayPapeles)
-				tomarUnPapel
 				depositarYAvanzar
-			sino
-				Informar('Ya-hay-mas-papeles', 0)
-		
+
 		EnviarMensaje(id, rc)
 		EnviarMensaje(PosCa, rc)
 	fin
@@ -74,6 +60,7 @@ robots
 		EnviarMensaje(3, r3)
 		EnviarMensaje(4, r4)
 
+		Informar('Robot-Coordinador', 4)
 		repetir 4
 			RecibirMensaje(idRobot, *)
 			si(idRobot = 1)
@@ -90,7 +77,7 @@ robots
 			si(aux > calleMax)
 				ganador:= idRobot
 				calleMax:= aux
-		
+		Informar('Hello-world',4)
 		Informar('El-robot-que-llego-mas-lejos-es', ganador)
 	fin
 
