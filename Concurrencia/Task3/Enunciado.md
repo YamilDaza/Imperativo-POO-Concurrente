@@ -1,4 +1,4 @@
-# Task2 - Concurrencia - Facultad de Informatica UNLP
+# Task3 - Concurrencia - Facultad de Informatica UNLP
 
 ## Enunciado:
 - Realice un programa en el que 4 robots juegan una carrera por avenidas diferentes: 4, 6,
