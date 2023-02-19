@@ -1,26 +1,64 @@
 programa app
+procesos
+  proceso JuntarFlores(ES cantidad:numero)
+  comenzar
+    mientras(HayFlorEnLaEsquina)
+      tomarFlor
+      cantidad:= cantidad + 1
+  fin
 areas
   area1: AreaP(1,1,1,10)
   area2: AreaP(2,11,2,20)
+  area3: AreaP(2,1,2,1)
 robots
   robot florero
 	variables
+    id:numero
 		cantidad:numero
   comenzar
+    RecibirMensaje(id, rf)
+
 		cantidad:=0
 		repetir 9
-			si(HayFlorEnLaEsquina)
-				tomarFlor
-				cantidad:= cantidad + 1
-			mover
-		Informar('TotalFlores',cantidad)
+			JuntarFlores(cantidad)
+      mover
+    JuntarFlores(cantidad)
+    
+    EnviarMensaje(id, rf)
+    EnviarMensaje(cantidad, rf)
+  fin
+
+  robot fiscalizador
+  variables
+    idRobot:numero
+    cantRobot1:numero
+    cantRobot2:numero
+  comenzar
+    EnviarMensaje(1,r1)
+    EnviarMensaje(2,r2)
+
+    repetir 2
+      RecibirMensaje(idRobot, *)
+      si(idRobot = 1)
+        RecibirMensaje(cantRobot1, r1)
+      sino
+        RecibirMensaje(cantRobot2, r2)
+
+    si(cantRobot1 > cantRobot2)
+      Informar('ROBOT-GANADOR-R1-CON,'cantRobot1)
+    sino
+      Informar('ROBOT-GANADOR-R2-CON,'cantRobot2)
+
   fin
 variables
   r1: florero
   r2: florero
+  rf: fiscalizador
 comenzar
   AsignarArea (r1, area1)
   AsignarArea (r2, area2)
+  AsignarArea (rf, area3)
 	Iniciar (r1, 1, 1)
 	Iniciar (r2, 2, 11)
+	Iniciar (rf, 2, 1)
 fin
