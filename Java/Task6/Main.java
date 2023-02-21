@@ -9,6 +9,17 @@ public class Main {
       */
       int dimF = 5, dimC = 4;
       int [][]clientes = new int[dimF][dimC];
+      String []categorias = new String[4];
+
+      categorias[0] = "Atencion al Cliente";
+      categorias[1] = "Calidad de la comida";
+      categorias[2] = "Precio";
+      categorias[3] = "Ambiente";
+
+      System.out.println("Categorias: ");
+      for (int i = 0; i < categorias.length; i++) {
+         System.out.println((i+1) + "- " + categorias[i]);
+      }
 
       try (Scanner leer = new Scanner(System.in)) {
          for (int f = 0; f < dimF; f++) {
