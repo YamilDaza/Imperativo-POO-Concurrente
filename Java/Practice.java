@@ -52,7 +52,7 @@ public class Practice{
       Scanner read = new Scanner(System.in);
       String name;
       int dni, age;
-
+      
       System.out.print("Enter your name: ");
       name = read.nextLine();
       
