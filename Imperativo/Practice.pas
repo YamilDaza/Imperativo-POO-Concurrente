@@ -1,25 +1,16 @@
 program Practice;
-   procedure recursion(x:integer);
-   begin
-      if(x < 5)then begin
-         x:=x-1;
-         recursion(x);
-      end;
-   end;
-
-   procedure imprimir(x:integer);
-   begin
-      if(x > 0)then begin
-         writeln('Valor de X ' ,x);
-         x:=x - 1;
-         imprimir(x);
-      end;
-   end;
 var
-   x:integer;
+   numOne:integer;
+   numTwo:integer;
 begin
-   x:=5;
-   imprimir(x);
-   recursion(1)
+   write('Enter the value of numOne: '); readln(numOne);
+   write('Enter the value of numTwo: '); readln(numTwo);
+
+   if(numOne = numTwo)then
+      writeln('Los numeros leidos son iguales')
+   else if(numOne > numTwo)then
+      writeln('El numero ',numOne,' es mayor a ',numTwo)
+   else
+      writeln('El numero ',numTwo,' es mayor a ',numOne);
 end.
 
