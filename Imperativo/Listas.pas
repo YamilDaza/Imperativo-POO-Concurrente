@@ -1,11 +1,13 @@
-program listas;
-type
-   puntero = ^integer;
-var
-   p:puntero;
-begin
-   new(p);
-   p^ := 123;
-   p := nil;
-   writeln('Mostrando mi puntero: ',p^);
-end.
+Program uno;
+Type 
+   listaE= ^datosEnteros; 
+   datosEnteros= record
+      elem:integer;
+      sig:listaE;
+   end;
+Var 
+   pri: listaE; {Memoria estática reservada}
+Begin
+   pri:= nil;
+End.
+
